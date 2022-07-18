@@ -1,11 +1,27 @@
 package templates
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Client struct {
-	Name, Phone, Address, Cpf string
+	name, Phone, Address, Cpf string
 }
 
-func (c Client) Client() {
-	fmt.Print("Nome: ", c.Name, "\nCPF: ", c.Cpf, "\nTelefone: ", c.Phone, "\nEndereço: ", c.Address)
+func (c Client) String() string {
+	return fmt.Sprint("Nome: ", c.name, "\nCPF: ", c.Cpf, "\nTelefone: ", c.Phone, "\nEndereço: ", c.Address)
+}
+
+func (c Client) Name() string {
+	return c.name
+}
+
+func (c Client) SetName(name string) error {
+	if name == "" {
+		return errors.New("nome inválido")
+	}
+
+	c.name = name
+	return nil
 }
